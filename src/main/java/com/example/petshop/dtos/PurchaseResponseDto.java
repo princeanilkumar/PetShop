@@ -2,17 +2,15 @@ package com.example.petshop.dtos;
 
 import java.time.LocalDate;
 
+/**
+ * @author anilkumar
+ *
+ */
 public class PurchaseResponseDto {
-	private String petName;
 	private int noOfPets;
 	private int totalCost;
 	private LocalDate date;
-	public String getPetName() {
-		return petName;
-	}
-	public void setPetName(String petName) {
-		this.petName = petName;
-	}
+	
 	public int getNoOfPets() {
 		return noOfPets;
 	}

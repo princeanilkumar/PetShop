@@ -37,14 +37,20 @@ public class UserController {
 	 * @throws InvalidCredentialsException
 	 */
 	@PostMapping("/users/login")
-	public String authenticateUser(@RequestBody LoginDto loginDto) throws InvalidCredentialsException {
+	public StatusRequestDto authenticateUser(@RequestBody LoginDto loginDto) throws InvalidCredentialsException {
 		logger.info("authenticating the user");
+		StatusRequestDto errorresponse = new StatusRequestDto();
 		boolean isExists;
 		isExists = userService.authenticateUser(loginDto.getUserName(), loginDto.getPassword());
-		if (isExists)
-			return "logged in successfully";
-		else {
-			return "Credentials are incorrect";
+		if (isExists) {
+			errorresponse.setStatusCode(201);
+			errorresponse.setMessage("login successfull");
+			return errorresponse;
+		} else {
+			errorresponse.setStatusCode(500);
+			errorresponse.setMessage("Ivallid input");
+			return errorresponse;
+
 		}
 	}
 	@ExceptionHandler(InvalidCredentialsException.class)

@@ -1,5 +1,9 @@
 package com.example.petshop.dtos;
 
+/**
+ * @author anilkumar
+ *
+ */
 public class PurchaseRequestDto {
 	private int userId;
 	private int petId;

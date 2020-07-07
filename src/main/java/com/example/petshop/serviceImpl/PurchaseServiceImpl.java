@@ -20,6 +20,10 @@ import com.example.petshop.models.Pet;
 import com.example.petshop.models.Purchase;
 import com.example.petshop.service.PurchaseService;
 
+/**
+ * @author anilkumar
+ *
+ */
 @Service
 public class PurchaseServiceImpl implements PurchaseService {
 
@@ -31,6 +35,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 	
 	
 
+	/**
+	 * throw PurchasesNotFoundException
+	 * return list of purchases
+	 */
 	@Override
 	public List<PurchaseResponseDto> getAllPurchasesByuserId(int userId) throws PurchasesNotFoundException {
 		Optional<List<Purchase>> petsOptional = purchaseDao.getAllPurchasesByPetName(userId);
@@ -47,6 +55,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return purchaseresponseDto;
 	}
 
+	/**throw OutOfPurchaseException
+	 *return boolean
+	 */
 	@Override
 	public boolean savesavePurchaseDetails(PurchaseRequestDto purchaseRequestDto) throws OutOfPurchaseException {
 		Purchase purchase = new Purchase();

@@ -19,11 +19,20 @@ import com.example.petshop.exceptions.OutOfPurchaseException;
 import com.example.petshop.exceptions.PurchasesNotFoundException;
 import com.example.petshop.service.PurchaseService;
 
+/**
+ * @author anilkumar
+ *
+ */
 @RestController
 public class PurchaseController {
 	@Autowired
 	PurchaseService perchaseService;
 
+	/**
+	 * @param userId
+	 * @return purchase details
+	 * @throws PurchasesNotFoundException
+	 */
 	@GetMapping("/user/{userId}/purchases")
 	public List<PurchaseResponseDto> getAllPurchasesByuserId(@PathVariable int userId)
 			throws PurchasesNotFoundException {
@@ -31,13 +40,18 @@ public class PurchaseController {
 		return perchaseService.getAllPurchasesByuserId(userId);
 	}
 
+	/**
+	 * @param purchaseRequestDto
+	 * @return status code, message
+	 * @throws OutOfPurchaseException
+	 */
 	@PostMapping("/purchase")
 	public StatusRequestDto savePurchaseDetails(@RequestBody PurchaseRequestDto purchaseRequestDto)
 			throws OutOfPurchaseException {
 		StatusRequestDto errorresponse = new StatusRequestDto();
 		boolean purchase = perchaseService.savesavePurchaseDetails(purchaseRequestDto);
 		if (purchase) {
-			errorresponse.setStatusCode(200);
+			errorresponse.setStatusCode(202);
 			errorresponse.setMessage("purchase successfull");
 			return errorresponse;
 		} else {
@@ -48,6 +62,10 @@ public class PurchaseController {
 		}
 	}
 
+	/**
+	 * @param exception
+	 * @return status code, message
+	 */
 	@ExceptionHandler(PurchasesNotFoundException.class)
 	public ResponseEntity<StatusRequestDto> exceptionHandler(PurchasesNotFoundException exception) {
 		StatusRequestDto errorresponse = new StatusRequestDto();
@@ -56,6 +74,10 @@ public class PurchaseController {
 		return new ResponseEntity<>(errorresponse, HttpStatus.NOT_FOUND);
 	}
 
+	/**
+	 * @param exception
+	 * @return status code, message
+	 */
 	@ExceptionHandler(OutOfPurchaseException.class)
 	public ResponseEntity<StatusRequestDto> exceptionHandler(OutOfPurchaseException exception) {
 		StatusRequestDto errorresponse = new StatusRequestDto();

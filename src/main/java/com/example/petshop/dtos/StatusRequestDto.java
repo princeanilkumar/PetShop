@@ -1,5 +1,9 @@
 package com.example.petshop.dtos;
 
+/**
+ * @author anilkumar
+ *
+ */
 public class StatusRequestDto {
 	private int statusCode;
 	private String message;
